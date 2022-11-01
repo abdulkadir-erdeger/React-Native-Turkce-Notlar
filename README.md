@@ -96,7 +96,46 @@ export default App;
 ```
 
 ### Style
-React Native ile uygulamanızı JavaScript kullanarak şekillendirirsiniz. Tüm çekirdek bileşenler style adında bir prop kabul eder. Stil adları ve değerleri genellikle CSS'in web'deki çalışma şekliyle eşleşir.
+React Native ile uygulamanızı JavaScript kullanarak şekillendirirsiniz. Tüm çekirdek bileşenler stil adında bir prop kabul eder. Stil adları ve değerleri genellikle CSS'in web'de nasıl çalıştığıyla eşleşir, ancak adlar camel casing kullanılarak yazılır, örneğin background-color yerine backgroundColor.
+
+```javascript
+import React from 'react';
+import {Text, View } from 'react-native';
+
+const App = () => {
+    return (
+      <View style={{marginTop:50}>
+        <Text style={{color:"red"}>just red</Text>
+      </View>
+    );
+};
+
+export default App;
+```
+>Bir bileşenin karmaşıklığı arttıkça, birkaç stili tek bir yerde tanımlamak için StyleSheet.create kullanmak genellikle daha temizdir.
+```javascript
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+
+const App = () => {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.text}>just red</Text>
+      </View>
+    );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 50,
+  },
+  text: {
+    color: 'red',
+  },
+});
+
+export default App;
+```
 
 ### State
 React ortamında değeri değiştiğinde tanımlaman componenti tekrar render etmesini sağlayan değişkenlere state adı verilir.
