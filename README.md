@@ -86,6 +86,15 @@ export default App;
 ### Props
 Çoğu component oluşturulduklarında farklı parametrelerle özelleştirilebilir. Oluşturulan bu parametreler, özelliklerin kısaltması olan prop olarak adlandırılır. Props kullanarak verileri üst görünümden alt görünüme aktarabilirsiniz.
 
+```javascript
+<Button onPress={onPressFunction} title="Learn More" color="#841584" />
+//Button component'ni incelersek burada onPress, title ve color props'larını özelleştirdik.
+
+<MyComponent message="Merhaba Dünya" />
+//Burada ise custom component olarak oluşturulmuş MyComponent bileşinine message prop'u oluşturarak "Merhaba Dünya" verisini aktardık.
+
+```
+
 ### Style
 React Native ile uygulamanızı JavaScript kullanarak şekillendirirsiniz. Tüm çekirdek bileşenler style adında bir prop kabul eder. Stil adları ve değerleri genellikle CSS'in web'deki çalışma şekliyle eşleşir.
 
