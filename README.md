@@ -80,20 +80,36 @@ Her componentin bir yaşam süreci vardır. Doğar, yaşar ve ölür. Biz geliş
 ![Resim 1](/gorsel/Resim1.png)
 
 React Hooks gelmeden önce Class component yapısında kullanılan üç aktif life-cycle method bulunmaktadır bunlar;
-- [ ] `componentDidMount()`
+- `componentDidMount()`
 > Bileşen başlangıçta bir kez render edildiğinde çalışır.
-- [ ] `componentDidUpdate()`
+-  `componentDidUpdate()`
 > Bileşen update edildiğinde ait olduğu bileşen render edilir ve yenilenir.
-- [ ] `componentWillUnmount()`
+-  `componentWillUnmount()`
 > Bileşen yapıdan çıkarıldığında (silinmesi,gösterilmemesi) gibi durumlarda kullanılır .
 
 React Hooks ile birlikte dünyamıza giren useEffect bu yapıları tek bir method altında kullanmamıza olanak sağlıyor.
 
-- [ ] `useEffect (()=>{},[])`
+- 
+```javascript
+useEffect (()=>{
+
+},[])
+```
 > Bileşen başlangıçta bir kez render edildiğinde çalışır.
-- [ ] `useEffect (()=>{},[dependencies])`
+-  
+```javascript
+useEffect (()=>{
+
+},[dependencies])
+```
 > Bileşen update edildiğinde ait olduğu bileşen render edilir ve yenilenir.
-- [ ] `useEffect (()=>{ return()=>{},[])`
+- 
+```javascript
+useEffect (()=>{ 
+
+return()=>{}
+},[])
+```
 > Bileşen yapıdan çıkarıldığında (silinmesi,gösterilmemesi) gibi durumlarda kullanılır .
 
 
