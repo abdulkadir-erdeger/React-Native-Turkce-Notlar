@@ -6,6 +6,8 @@ Mobil cihazlar için yazılım uygulamaları oluşturma sürecine mobil programl
 ## Mobil Uygulama Geliştirmek için Hangi Seçenekler vardır?
 Günümüzde üç çeşit mobil programlama geliştirme seçeneği mevcuttur.
 
+![Resim 3](/gorsel/Resim3.png)
+
 - [ ] **Hybrid** 
 > Tarayıcı motoru üzerinden derlenen uygulama geliştirme yöntemidir.
 - [ ] **Native** 
@@ -104,7 +106,7 @@ import {Text, View } from 'react-native';
 
 const App = () => {
     return (
-      <View style={{marginTop:50}>
+      <View style={{marginTop:50}}>
         <Text style={{color:"red"}>just red</Text>
       </View>
     );
