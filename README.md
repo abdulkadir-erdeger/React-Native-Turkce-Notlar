@@ -18,6 +18,9 @@ React Native, hem IOS hem de Android işletim sistemleri için mobil uygulamalar
 
 ## React Native Nasıl Çalışır?
 React Native ile geliştirmiş bir uygulama Native uygulamaların aksine direk işletim sistemi tarafından değilde işletim sistemi üzerine inşa edilmiş Javascript motoru tarafından derlenir. Bu Javacript motoruna React Native Bridge diyoruz ve 3 ana bölümden oluşuyor.
+
+![Resim 2](/gorsel/Resim2.png)
+
 - [ ] **UI Thread** 
 > Ekranda görüntülenecek bileşenlerin kontrolünü gerçekleştirir.
 - [ ] **JS Thread** 
@@ -58,4 +61,14 @@ React Hooks gelmeden önce Class component yapısında kullanılan üç aktif li
 > Bileşen update edildiğinde ait olduğu bileşen render edilir ve yenilenir.
 - [ ] `componentWillUnmount()`
 > Bileşen yapıdan çıkarıldığında (silinmesi,gösterilmemesi) gibi durumlarda kullanılır .
+
+React Hooks ile birlikte dünyamıza giren useEffect bu yapıları tek bir method altında kullanmamıza olanak sağlıyor.
+
+- [ ] `useEffect (()=>{},[])`
+> Bileşen başlangıçta bir kez render edildiğinde çalışır.
+- [ ] `useEffect (()=>{},[dependencies])`
+> Bileşen update edildiğinde ait olduğu bileşen render edilir ve yenilenir.
+- [ ] `useEffect (()=>{ return()=>{},[])`
+> Bileşen yapıdan çıkarıldığında (silinmesi,gösterilmemesi) gibi durumlarda kullanılır .
+
 
