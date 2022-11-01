@@ -33,6 +33,20 @@ React Native ile geliştirmiş bir uygulama Native uygulamaların aksine direk i
 ### JSX (JavaScript Syntax Extension) 
 React ve React Native ortamında programlama yaparken kullanılacak sözdiziminin okunmasını veya ifade edilmesini kolaylaştırmak için tasarlanmış formattır.
 
+```javascript
+//Bu şekildeki bir yapıyı...
+React.createElement(
+  MyButton,
+  {color: 'blue', shadowSize: 2},
+  'Click Me'
+)
+
+//Bu şekile çevirerek daha anlaşılır bir şekilde kullanmamızı sağlar.
+<MyButton color="blue" shadowSize={2}>
+  Click Me
+</MyButton>
+```
+
 ### Component 
 React ve React Native dünyasınındaki her bir parçadır. Değer alabilen, aldığı değerleri işleyebilen özel yapılardır. Kullanıcı arayüzünü bağımsız, yeniden kullanılabilir parçalara ayırmanıza ve her bir parçayı ayrı ayrı düşünmenize olanak tanır. Kavramsal olarak componentler JavaScript fonksiyonları gibidir. Rastgele girdileri (props) kabul eder ve ekranda neyin görünmesi gerektiğini açıklayan React öğelerini döndürürler.
 1.	**Functional Components**
