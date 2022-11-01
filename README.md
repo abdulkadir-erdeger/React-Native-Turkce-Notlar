@@ -37,8 +37,37 @@ React ve React Native ortamında programlama yaparken kullanılacak sözdizimini
 React ve React Native dünyasınındaki her bir parçadır. Değer alabilen, aldığı değerleri işleyebilen özel yapılardır. Kullanıcı arayüzünü bağımsız, yeniden kullanılabilir parçalara ayırmanıza ve her bir parçayı ayrı ayrı düşünmenize olanak tanır. Kavramsal olarak componentler JavaScript fonksiyonları gibidir. Rastgele girdileri (props) kabul eder ve ekranda neyin görünmesi gerektiğini açıklayan React öğelerini döndürürler.
 1.	**Functional Components**
 > Fonksiyonel componentler daha basittir. Kendi durumlarını yönetmezler veya React Native tarafından sağlanan yaşam döngüsü yöntemlerine erişimleri yoktur. Tam anlamıyla eski JavaScript fonksiyonlarıdır ve bazen durumsuz bileşenler olarak da adlandırılırlar.
+
+```javascript
+import React from 'react';
+import { Text } from 'react-native';
+
+const App = () => {
+  return (
+    <Text>Merhaba Dünya</Text>
+  );
+}
+
+export default App;
+```
+
 2.	**Class Components**
 > Sınıf componentleri , React'in Component adlı bir temel sınıfını genişleten JavaScript ES2015 sınıflarıdır.  React yaşam döngüsü yöntemlerinin yanı sıra ana sınıftaki state/props işlevselliğine erişim sağlar.
+
+```javascript
+import React, { Component } from 'react';
+import { Text } from 'react-native';
+
+class App extends Component {
+  render() {
+    return (
+      <Text>Merhaba Dünya</Text>
+    );
+  }
+}
+
+export default App;
+```
 
 ### Props
 Çoğu component oluşturulduklarında farklı parametrelerle özelleştirilebilir. Oluşturulan bu parametreler, özelliklerin kısaltması olan prop olarak adlandırılır. Props kullanarak verileri üst görünümden alt görünüme aktarabilirsiniz.
@@ -50,8 +79,8 @@ React Native ile uygulamanızı JavaScript kullanarak şekillendirirsiniz. Tüm 
 React ortamında değeri değiştiğinde tanımlaman componenti tekrar render etmesini sağlayan değişkenlere state adı verilir.
 
 *  #### Class Component State Kullanımı
-<sub>React.Component’ini extend ettiği zaman React.Component’nin constructor’ı state’i componentimize tanımlar ve varsayılan değer olarak null atar. Daha sonrasında kendi state değerlerimizi belirlemek için componentimizin constructor’ında veya direkt olarak sınıf içerisinde tanımlamalarımızı gerçekleştirebiliriz.
-Constructor içerisinde tanımlamış olduğumuz statelere erişmek için this ifadesini kullanırız.</sub>
+> React.Component’ini extend ettiği zaman React.Component’nin constructor’ı state’i componentimize tanımlar ve varsayılan değer olarak null atar. Daha sonrasında kendi state değerlerimizi belirlemek için componentimizin constructor’ında veya direkt olarak sınıf içerisinde tanımlamalarımızı gerçekleştirebiliriz.
+Constructor içerisinde tanımlamış olduğumuz statelere erişmek için this ifadesini kullanırız.
 
 ```javascript
 //State Tanımlama
@@ -64,7 +93,7 @@ constructor(props) {
 this.setState({myState: 'Merhaba Dünya'})
 ```
 *  #### Function Component State Kullanımı
-<sub>Class componentde React.Component içerisinde state mekanizması hazır olan bir yapıdan bileşenimizi türetiyorken functional component de bunu useState Hook ile sağlayabiliyoruz. useState bir dizi şeklinde tanımlanır iki parametre alır ilk parametre değişkenin (state) kendisi ikincisi değişiklikleri atamamızı sağlayan parametre olarak tanımlanır. </sub>
+> Class componentde React.Component içerisinde state mekanizması hazır olan bir yapıdan bileşenimizi türetiyorken functional component de bunu useState Hook ile sağlayabiliyoruz. useState bir dizi şeklinde tanımlanır iki parametre alır ilk parametre değişkenin (state) kendisi ikincisi değişiklikleri atamamızı sağlayan parametre olarak tanımlanır. 
 
 ```javascript
 //State Tanımlama
