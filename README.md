@@ -49,6 +49,31 @@ React Native ile uygulamanızı JavaScript kullanarak şekillendirirsiniz. Tüm 
 ### State
 React ortamında değeri değiştiğinde tanımlaman componenti tekrar render etmesini sağlayan değişkenlere state adı verilir.
 
+*  #### Class Component State Kullanımı
+<sub>React.Component’ini extend ettiği zaman React.Component’nin constructor’ı state’i componentimize tanımlar ve varsayılan değer olarak null atar. Daha sonrasında kendi state değerlerimizi belirlemek için componentimizin constructor’ında veya direkt olarak sınıf içerisinde tanımlamalarımızı gerçekleştirebiliriz.
+Constructor içerisinde tanımlamış olduğumuz statelere erişmek için this ifadesini kullanırız.</sub>
+
+```javascript
+//State Tanımlama
+constructor(props) {
+   super(props);
+   this.state = { myState: 'Merhaba React Native' };
+}
+
+//State değerini değiştirme
+this.setState({myState: 'Merhaba Dünya'})
+```
+*  #### Function Component State Kullanımı
+<sub>Class componentde React.Component içerisinde state mekanizması hazır olan bir yapıdan bileşenimizi türetiyorken functional component de bunu useState Hook ile sağlayabiliyoruz. useState bir dizi şeklinde tanımlanır iki parametre alır ilk parametre değişkenin (state) kendisi ikincisi değişiklikleri atamamızı sağlayan parametre olarak tanımlanır. </sub>
+
+```javascript
+//State Tanımlama
+const [myState, setMyState]=useState("Merhaba React Native");
+
+//State değerini değiştirme
+setMyState('Merhaba Dünya')
+```
+
 ### Lifecycle
 Her componentin bir yaşam süreci vardır. Doğar, yaşar ve ölür. Biz geliştirme sürecinde bu componentlerin yaşam evrelerini lifecycle ile yönetiyoruz.
 
