@@ -205,4 +205,27 @@ return()=>{}
 ```
 > Bileşen yapıdan çıkarıldığında (silinmesi,gösterilmemesi) gibi durumlarda kullanılır .
 
+### State Yönetimi
+Veriler prop'lar aracılığıyla en üst componentden bir alt componenete (yukarıdan aşağıya) aktarılır. Ancak bu tür bir kullanım büyük bir uygulama içindeki birçok componenet arası veri aktarımı işlemi için zor ve kullanışsız bir yöntem olacaktır. Context ve Redux vb. yöntemler componentlerin her seviyesinden açıkça bir prop geçirmek zorunda kalmadan bileşenler arasında bu gibi değerleri paylaşmanın bir yolunu sağlar.
 
+![Resim 4](/gorsel/Resim4.png)
+
+1. **Context API**
+> React’ın kendi geleneksel context yapısını kullanarak global bir state yönetimi tasarlamaya yöntemidir. Global state değerleri çok fazla değişmeyecekse, birden fazla context yapısı kullanacaksak bu yöntemi tercih edebiliriz.
+
+2. **Redux**
+> Redux state bileşenlerini yönetmemizi sağlayan kütüphanedir. Gloal statelerimizde sık sık veri güncellemesi yapacaksak, birden fazla reducer'a ihtiyaç duyacaksak bu yöntemi tercih edebiliriz. Redux’ta veri aktarımı ``Action``, ``Reducer`` ve ``Store`` gerçekleştirilir ve UI’a sunulur.
+
+![Resim 5](/gorsel/Resim5.png)
+
+* ``Action``
+Actionlar içinde “type” isimli bir string değişkeni tutan bir Javascript nesnesidir. dispatch(action) fonksiyonu ile store içine aktarılır.
+
+* ``Reducer``
+Reducerlar, action sonucunda uygulamanın var olan state’i değiştirmesini sağlar. Uygulama değişikliğinin state’e aktarılması ise reducer tarafından olur.
+
+* ``Store``
+Store işlemi, action ve reducerı bir araya getirip yapıyı bağlar. Uygulamanın state’in tutulması, state’e erişim ``useSelector()``, state’in güncellenmesi ``useDispatch(action)`` gibi işlemler store üzerinden yönetilir.
+
+* ``Provider``
+Store’un tüm uygulamaya etki etmesini sağlayan, uygulamanın etrafını sarmalayan bir yapıdır.
