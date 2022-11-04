@@ -229,3 +229,17 @@ Store işlemi, action ve reducerı bir araya getirip yapıyı bağlar. Uygulaman
 
 * ``Provider``
 Store’un tüm uygulamaya etki etmesini sağlayan, uygulamanın etrafını sarmalayan bir yapıdır.
+
+### Memoization / Re-Render (Performans Optimizasyonu)
+Bazen uygulamalarımızda fazla işlemci tüketen fonksiyonlar veya gereksiz re-render eden componentlerden kaynaklı performans sorunları yaşayabiliriz. Bu performans sorunlarını önlemek için Class componentler için ``Pure Component`` ve ``shouldComponentUpdate``, Functional componentler için ``useMome`` ve ``useCallback`` yöntemlerini kullanabiliriz.
+
+* ``useMemo()``
+Fonksiyonlardaki fazla işlemci tüketen işlemler olduğu durumlarda fonksiyon her çağrıldığında bu işlemleri yapmak yerine fonksiyondan dönen son değeri afızasında tutar. Son değeri (dependency array) referans alarak son değer değişmedikçe cache deki değeri döndüren bir yöntemdir.
+
+
+* ``useCallback()``
+Bir component her render edildiğinde component içerisindeki fonksiyonlarda da tekrardan oluşturulur. Bu da büyük projelerde component içerisindeki fonksiyonların tekrar tekar oluşturacağı için performans açısından kötü sonuçlar doğuracaktır. Bu re-render işlemini önlemek için useCallBack Hook'unu kullanıyoruz.
+
+* ``memo``
+Bir üst component render edildiğinde ona bağlı alt componentlerde render olur. Alt componentlerde yansıyan herhangi bir değişlik yok ise boşa render işlemi gerçekleşmiş olur. React.memo ile sarmaladığımı bir component kendisine gönderilen props değerlerini saklar ve kaydeder. Bir sonraki render durumunda bu component’e gönderilen props değerleri,  bir önceki render edildiğindeki props değerleri ile karşılaştırır. Eğer props değerleri aynı ise componenti tekrar render etmez.
+
