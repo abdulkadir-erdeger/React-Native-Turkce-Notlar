@@ -244,3 +244,13 @@ Bazen uygulamalarımızda fazla işlemci tüketen fonksiyonlar veya gereksiz re-
 > Bir üst component render edildiğinde ona bağlı alt componentlerde render olur. Alt componentlerde yansıyan herhangi bir değişlik yok ise boşa render işlemi gerçekleşmiş olur. React.memo ile sarmaladığımı bir component kendisine gönderilen props değerlerini saklar ve kaydeder. Bir sonraki render durumunda bu component’e gönderilen props değerleri,  bir önceki render edildiğindeki props değerleri ile karşılaştırır. Eğer props değerleri aynı ise componenti tekrar render etmez.
 
 Özetle ``useMemo`` fonksiyondan dönen değeri, ``useCallback`` dönen fonksiyonu ve ``memo`` ise componentten dönen prop değerlerini hafızada tutarak gereksiz render işlemlerini önlememize yarıyor.
+
+### Test İşlemleri
+Projelerimizde kod yapıları genişledikçe beklenmeyen hatalar büyük sorunlara dönüşmektedir. Bir mobil uygulamayı kullanıma sunma süreci web uygulamalarına göre daha uzun bir süre almaktadır. Buglı bir mobil uygulamanın kullanıma sunulduktan sonra güncellemenin gönderilmesi zaman ve maliyet açısından sorun teşkil edecektir. Buda mobil uygulamaların kullanıma sunulmadan testlerinin yapılmasının önemini artırmaktadır. Testler ayrıca projeye yeni katılacak kişiler için kodların işlevselliği için belge görevi görecektir.
+
+![Resim 6](/gorsel/Resim6.png)
+
+> ``Unit`` testler bir uygulamada bulunan en küçük yapıların birimlerin test edilmesidir. ``Integration`` testleri birbirinden farklı olan birimlerin bir araya gelerek oluşan yeni yapının doğru bir şekilde çalışıp çalışmadığının kontrol edilmesidir. ``End to End`` ve ``UI`` testleri son kullanıcı gibi davranarak uygulamaların tümünün kontrol edildiği testlerdir.
+
+1. **Unit Test**
+
