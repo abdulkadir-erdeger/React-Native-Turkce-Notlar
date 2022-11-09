@@ -1,5 +1,43 @@
 # React Native Türkçe Notlar
 
+<!--ts-->
+- [Mobil Programlama Nedir?](#mobil-programlama-nedir)
+- [Mobil Uygulama Geliştirmek için Hangi Seçenekler vardır?](#mobil-uygulama-geliştirmek-için-hangi-seçenekler-vardır)
+- [React Native Nedir?](#react-native-nedir)
+- [React Native Nasıl Çalışır?](#react-native-nasıl-çalışır)
+- [React Native Temelleri](#react-native-temelleri)
+	- [JSX (JavaScript Syntax Extension)](#jsx-javascript-syntax-extension)
+	- [Component](#component)
+		- [Functional Components](#functional-components)
+		- [Class Components](#class-components)
+	- [Props](#props)
+	- [Style](#style)
+	- [State](#state)
+		- [Class Component State Kullanımı](#class-component-state-kullanımı)
+		- [Function Component State Kullanımı](#function-component-state-kullanımı)
+	- [Lifecycle](#lifecycle)
+		- [Class Component Lifecycle](#class-component-lifecycle)
+		- [Functional Component Hook Lifecycle](#functional-component-hook-lifecycle)
+	- [State Yönetimi](#state-yönetimi)
+		- [Context API](#context-api)
+		- [Redux](#redux)
+		- [Redux Saga](#redux-saga)
+	- [Memoization / Re-Render (Performans Optimizasyonu)](#memoization--re-render-performans-optimizasyonu)
+		- [``useMemo()``](#usememo)
+		- [``useCallback()``](#usecallback)
+		- [``memo``](#memo)
+	- [Test İşlemleri](#test-i̇şlemleri)
+		- [Unit Test](#unit-test)
+			- [Unit Test Araçları](#unit-test-araçları)
+			- [Snapshots Testi](#snapshots-testi)
+			- [Component Testi](#component-testi)
+			- [Fonksiyon Testi](#fonksiyon-testi)
+			- [Stil Testi](#stil-testi)
+		- [Integration Testi](#integration-testi)
+		- [End to End Testi](#end-to-end-testi)
+
+<!--te-->
+
 ## Mobil Programlama Nedir?
 Mobil cihazlar için yazılım uygulamaları oluşturma sürecine mobil programlama diyoruz.
 
@@ -51,7 +89,7 @@ React.createElement(
 
 ### Component 
 React ve React Native dünyasınındaki her bir parçadır. Değer alabilen, aldığı değerleri işleyebilen özel yapılardır. Kullanıcı arayüzünü bağımsız, yeniden kullanılabilir parçalara ayırmanıza ve her bir parçayı ayrı ayrı düşünmenize olanak tanır. Kavramsal olarak componentler JavaScript fonksiyonları gibidir. Rastgele girdileri (props) kabul eder ve ekranda neyin görünmesi gerektiğini açıklayan React öğelerini döndürürler.
-1.	**Functional Components**
+1.	#### Functional Components
 > Fonksiyonel componentler daha basittir. Kendi durumlarını yönetmezler veya React Native tarafından sağlanan yaşam döngüsü yöntemlerine erişimleri yoktur. Tam anlamıyla eski JavaScript fonksiyonlarıdır ve bazen durumsuz bileşenler olarak da adlandırılırlar.
 
 ```javascript
@@ -67,7 +105,7 @@ const App = () => {
 export default App;
 ```
 
-2.	**Class Components**
+2.	#### Class Components
 > Sınıf componentleri , React'in Component adlı bir temel sınıfını genişleten JavaScript ES2015 sınıflarıdır.  React yaşam döngüsü yöntemlerinin yanı sıra ana sınıftaki state/props işlevselliğine erişim sağlar.
 
 ```javascript
@@ -172,6 +210,8 @@ Her componentin bir yaşam süreci vardır. Doğar, yaşar ve ölür. Biz geliş
 
 ![Resim 1](/gorsel/Resim1.png)
 
+1. #### Class Component Lifecycle
+
 React Hooks gelmeden önce Class component yapısında kullanılan üç aktif life-cycle method bulunmaktadır bunlar;
 - `componentDidMount()`
 > Bileşen başlangıçta bir kez render edildiğinde çalışır.
@@ -179,6 +219,8 @@ React Hooks gelmeden önce Class component yapısında kullanılan üç aktif li
 > Bileşen update edildiğinde ait olduğu bileşen render edilir ve yenilenir.
 -  `componentWillUnmount()`
 > Bileşen yapıdan çıkarıldığında (silinmesi,gösterilmemesi) gibi durumlarda kullanılır .
+
+2. #### Functional Component Hook Lifecycle
 
 React Hooks ile birlikte dünyamıza giren useEffect bu yapıları tek bir method altında kullanmamıza olanak sağlıyor.
 
@@ -210,10 +252,10 @@ Veriler prop'lar aracılığıyla en üst componentden bir alt componenete (yuka
 
 ![Resim 4](/gorsel/Resim4.png)
 
-1. **Context API**
+1. #### Context API
 > React’ın kendi geleneksel context yapısını kullanarak global bir state yönetimi tasarlamaya yöntemidir. Global state değerleri çok fazla değişmeyecekse, birden fazla context yapısı kullanacaksak bu yöntemi tercih edebiliriz.
 
-2. **Redux**
+2. #### Redux
 > Redux state bileşenlerini yönetmemizi sağlayan kütüphanedir. Gloal statelerimizde sık sık veri güncellemesi yapacaksak, birden fazla reducer'a ihtiyaç duyacaksak bu yöntemi tercih edebiliriz. Redux’ta veri aktarımı ``Action``, ``Reducer`` ve ``Store`` gerçekleştirilir ve UI’a sunulur.
 
 ![Resim 5](/gorsel/Resim5.png)
@@ -230,17 +272,19 @@ Store işlemi, action ve reducerı bir araya getirip yapıyı bağlar. Uygulaman
 * ``Provider``
 Store’un tüm uygulamaya etki etmesini sağlayan, uygulamanın etrafını sarmalayan bir yapıdır.
 
+3. #### Redux Saga
+
 ### Memoization / Re-Render (Performans Optimizasyonu)
 Bazen uygulamalarımızda fazla işlemci tüketen fonksiyonlar veya gereksiz re-render eden componentlerden kaynaklı performans sorunları yaşayabiliriz. Bu performans sorunlarını önlemek için Class componentler için ``Pure Component`` ve ``shouldComponentUpdate``, Functional componentler için ``useMome`` ve ``useCallback`` yöntemlerini kullanabiliriz.
 
-* ``useMemo()``
+* #### ``useMemo()``
 > Fonksiyonlardaki fazla işlemci tüketen işlemler olduğu durumlarda fonksiyon her çağrıldığında bu işlemleri yapmak yerine fonksiyondan dönen son değeri afızasında tutar. Son değeri (dependency array) referans alarak son değer değişmedikçe cache deki değeri döndüren bir yöntemdir.
 
 
-* ``useCallback()``
+* #### ``useCallback()``
 > Bir component her render edildiğinde component içerisindeki fonksiyonlarda da tekrardan oluşturulur. Bu da büyük projelerde component içerisindeki fonksiyonların tekrar tekar oluşturacağı için performans açısından kötü sonuçlar doğuracaktır. Bu re-render işlemini önlemek için useCallBack Hook'unu kullanıyoruz.
 
-* ``memo``
+* #### ``memo``
 > Bir üst component render edildiğinde ona bağlı alt componentlerde render olur. Alt componentlerde yansıyan herhangi bir değişlik yok ise boşa render işlemi gerçekleşmiş olur. React.memo ile sarmaladığımı bir component kendisine gönderilen props değerlerini saklar ve kaydeder. Bir sonraki render durumunda bu component’e gönderilen props değerleri,  bir önceki render edildiğindeki props değerleri ile karşılaştırır. Eğer props değerleri aynı ise componenti tekrar render etmez.
 
 Özetle ``useMemo`` fonksiyondan dönen değeri, ``useCallback`` dönen fonksiyonu ve ``memo`` ise componentten dönen prop değerlerini hafızada tutarak gereksiz render işlemlerini önlememize yarıyor.
@@ -252,15 +296,15 @@ Projelerimizde kod yapıları genişledikçe beklenmeyen hatalar büyük sorunla
 
 > ``Unit`` testler bir uygulamada bulunan en küçük yapıların birimlerin test edilmesidir. ``Integration`` testleri birbirinden farklı olan birimlerin bir araya gelerek oluşan yeni yapının doğru bir şekilde çalışıp çalışmadığının kontrol edilmesidir. ``End to End`` ve ``UI`` testleri son kullanıcı gibi davranarak uygulamaların tümünün kontrol edildiği testlerdir.
 
-1. **Unit Test**
+1. #### Unit Test
 > Uygulamalarımızda test edebileceğimiz en küçük birimdir. Bir component üzerinde değişiklik yapılıp yapılmadığını, component üzerinden dönen propsların işlevselliğini, bir fonksiyonun istenen işlevselliği karşılayıp karşılamadığını ve componentlerin stil özelliklerini test edebiliriz.
 
-* Unit Test Araçları
+* ##### Unit Test Araçları
 > ``Jest``: Facebook tarafından test için geliştirilmiş bir kütüphanedir. React ve React-Native gibi frameworklerde kullanabilmekteyiz. </br>
 ``Testing Library``: React dokümanında testler için tavsiye edilen kütüphanedir. Testing library React-Native için yardımcı fonksiyonlar sunar.
 
 
-* Snapshots Testi
+* ##### Snapshots Testi
 > Bir component in doğru bir şekilde render olup olmadığının ve component üzerinde değişiklik yapılıp yapılmadığının kontrol edildiği testtir.
 ```javascript
 import React from 'react';
@@ -272,7 +316,7 @@ const comp=render(<Button/>);
 expect(comp).toMatchSnapshot();
 })
 ```
-* Component Testi
+* ##### Component Testi
 > Component üzerinden dönen propsların işlevselliğinin kontrol edildiği testtir.
 ```javascript
 import React from 'react';
@@ -287,7 +331,7 @@ const buttonText=comp.getByTestId('button-title').children[0];
 expect(buttonText).toBe(testTitle);
 })
 ```
-* Fonksiyon Testi
+* ##### Fonksiyon Testi
 > Bir fonksiyonun istenilen işlevselliği karşılayıp karşılamadığının kontrol edildiği testtir.
 ```javascript
 import React from 'react';
@@ -304,7 +348,7 @@ fireEvent(buttonTouchable,'press');
 expect(mockFunction).toBeCalled();
 })
 ```
-* Stil Testi
+* ##### Stil Testi
 > Componentlerin stil özelliklerinin kontrol edildiği testtir.
 ```javascript
 import React from 'react';
@@ -320,3 +364,5 @@ const buttonStyle=comp.getByTestId('button-touchable').props.style;
 expect(buttonStyle).toMatchObject(styles[selectedTheme].container);
 })
 ```
+2. #### Integration Testi
+3. #### End to End Testi
