@@ -261,18 +261,21 @@ Veriler prop'lar aracılığıyla en üst componentden bir alt componenete (yuka
 ![Resim 5](/gorsel/Resim5.png)
 
 * ``Action``
-Actionlar içinde “type” isimli bir string değişkeni tutan bir Javascript nesnesidir. dispatch(action) fonksiyonu ile store içine aktarılır.
+Uygulama içerisinden store’a iletilen değişkenlerin bilgilerini tutar.
 
 * ``Reducer``
 Reducerlar, action sonucunda uygulamanın var olan state’i değiştirmesini sağlar. Uygulama değişikliğinin state’e aktarılması ise reducer tarafından olur.
 
 * ``Store``
-Store işlemi, action ve reducerı bir araya getirip yapıyı bağlar. Uygulamanın state’in tutulması, state’e erişim ``useSelector()``, state’in güncellenmesi ``useDispatch(action)`` gibi işlemler store üzerinden yönetilir.
+Store işlemi, action ve reducerı bir araya getirip yapıyı bağlar. Uygulamanın state’ini tutar ve bazı metodlar ile bu state’ erişim yapılmasını sağlar.
 
 * ``Provider``
 Store’un tüm uygulamaya etki etmesini sağlayan, uygulamanın etrafını sarmalayan bir yapıdır.
 
 3. #### Redux Saga
+> ``Redux saga`` asenkron akışların okunmasını, yazılmasını ve test edilmesini kolaylaştırmak için kullanılan bir kütüphanedir. Bir Redux ara yazılımıdır, yani bu iş parçacığı normal Redux eylemleriyle ana uygulamadan başlatılabilir, duraklatılabilir ve iptal edilebilir, tüm Redux uygulama durumuna erişebilir ve Redux eylemlerini de gönderebilir.
+
+![Resim 7](/gorsel/Resim7.png)
 
 ### Memoization / Re-Render (Performans Optimizasyonu)
 Bazen uygulamalarımızda fazla işlemci tüketen fonksiyonlar veya gereksiz re-render eden componentlerden kaynaklı performans sorunları yaşayabiliriz. Bu performans sorunlarını önlemek için Class componentler için ``Pure Component`` ve ``shouldComponentUpdate``, Functional componentler için ``useMome`` ve ``useCallback`` yöntemlerini kullanabiliriz.
@@ -365,4 +368,8 @@ expect(buttonStyle).toMatchObject(styles[selectedTheme].container);
 })
 ```
 2. #### Integration Testi
+> Entegrasyon testi, farklı parçaların bir grup olarak test edildiği bir test türüdür.
+```javascript
+
+```
 3. #### End to End Testi
