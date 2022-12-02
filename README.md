@@ -370,6 +370,41 @@ expect(buttonStyle).toMatchObject(styles[selectedTheme].container);
 2. #### Integration Testi
 > Entegrasyon testi, farklı parçaların bir grup olarak test edildiği bir test türüdür.
 ```javascript
+  const initialState = {
+    todos: {
+      todoList: ['buy groceries'],
+    },
+  };
 
+  test('should display previous and new todos', async () => {
+    const newTodoText = 'go running';
+    const page = renderPage(<TodoList />, initialState);
+    // GIVEN
+    const TodoInput = page.getByPlaceholder(wording.todos.newTodo);
+    const AddTodoButton = page.getByText(wording.todos.add);
+    const FirstTodo = page.queryByText('buy groceries');
+    expect(FirstTodo).toBeTruthy();
+    // WHEN
+    fireEvent.changeText(TodoInput, newTodoText);
+    fireEvent.press(AddTodoButton);
+    // THEN
+    const NewTodo = await waitForElement(() => page.queryByText(newTodoText));
+    expect(NewTodo).toBeTruthy();
+  });
 ```
 3. #### End to End Testi
+> E2E testleri son kullanıcı gibi davranarak uygulamaların tümünün kontrol edildiği testlerdir. E2E testleri yapabileceğimiz çeşitli araçlar mevcuttur. Bunlardan en popüler olanı ``Detox`` kütüphanesidir. React Native uygulamaları için özel olarak tasarlanmışır. Diğer popüler kütüphane ``Appium``'dur.
+
+```javascript
+  test('should login successfully', async () => {
+    await device.reloadReactNative();
+
+    await element(by.id('email')).typeText('john@example.com');
+    await element(by.id('password')).typeText('123456');
+    await element(by.text('Login')).tap();
+
+    await expect(element(by.text('Welcome'))).toBeVisible();
+    await expect(element(by.id('email'))).toNotExist();
+  });
+```
+![Resim 8](/gorsel/detoxtest.gif)
