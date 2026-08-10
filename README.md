@@ -39,24 +39,26 @@
 <!--te-->
 
 ## Mobil Programlama Nedir?
-Mobil cihazlar için yazılım uygulamaları oluşturma sürecine mobil programlama diyoruz.
+Mobil cihazlar (akıllı telefonlar, tabletler) için yazılım uygulamaları oluşturma sürecine mobil programlama diyoruz.
 
 ## Mobil Uygulama Geliştirmek için Hangi Seçenekler vardır?
-Günümüzde üç çeşit mobil programlama geliştirme seçeneği mevcuttur.
+Günümüzde üç ana mobil uygulama geliştirme yaklaşımı mevcuttur:
 
 ![Resim 3](/gorsel/Resim3.png)
 
 - [ ] **Hybrid** 
-> Tarayıcı motoru üzerinden derlenen uygulama geliştirme yöntemidir.
+> Web teknolojileri (HTML, CSS, JS) ile yazılan ve bir WebView (tarayıcı motoru) içinde derlenerek çalışan uygulamalardır (Örn: Ionic, Capacitor).
 - [ ] **Native** 
-> İşletim sistemi tarafından direkt derlenebilen uygulama geliştirme yöntemidir.
+> Doğrudan hedef platformun kendi dili ve SDK'sı ile geliştirilen uygulamalardır (iOS için Swift/Objective-C, Android için Kotlin/Java).
 - [ ] **Cross Platfrom** 
-> Bir Bridge ya da SDK aracılığıyla derlenen uygulama geliştirme yöntemidir.
+> Tek bir kod tabanı yazarak bir Köprü (Bridge), C++ Arayüzü (JSI) veya özel bir Rendering Engine/SDK aracılığıyla her iki platforma da çıktı veren geliştirme yöntemidir (Örn: React Native, Flutter).
 
 ## React Native Nedir?
-React Native, hem IOS hem de Android işletim sistemleri için mobil uygulamalar geliştirmemizi sağlayan Javascript tabanlı bir Framework’tür.
+React Native, Meta (Facebook) tarafından geliştirilen; JavaScript ve React prensiplerini kullanarak hem iOS hem de Android platformları için yerel (native) arayüze sahip mobil uygulamalar geliştirmemizi sağlayan açık kaynaklı bir framework'tür.
 
 ## React Native Nasıl Çalışır?
+### Eski Mimari
+
 React Native ile geliştirmiş bir uygulama Native uygulamaların aksine direk işletim sistemi tarafından değilde işletim sistemi üzerine inşa edilmiş Javascript motoru tarafından derlenir. Bu Javacript motoruna React Native Bridge diyoruz ve 3 ana bölümden oluşuyor.
 
 ![Resim 2](/gorsel/Resim2.png)
@@ -68,11 +70,25 @@ React Native ile geliştirmiş bir uygulama Native uygulamaların aksine direk i
 - [ ] **Native Thread** 
 > Telefonun yerel bileşenlerine erişmek istediğimizdeki tüm sistemsel çağrıların kontrolünü gerçekleştirir.
 
+### Yeni Mimari
+Yeni mimari, Bridge tıkanıklığını ortadan kaldırmak için C++ tabanlı JSI (JavaScript Interface) üzerine inşa edilmiştir. Veriler JSON'a dönüştürülmeden, doğrudan bellekteki C++ nesne referanslarıyla iletilir.
+
+- [] **JSI (JavaScript Interface)**
+> Bridge yapısını tamamen kaldırır. JS katmanının C++ nesneleri üzerinden Native metotları doğrudan ve senkron olarak çağırmasını sağlar.
+
+- [] **Fabric (Yeni Render Motoru)**
+> Eski UI ve Shadow Tree yapısının yerini alan yeni UI motorudur. C++ seviyesinde çalıştığı için ekrandaki bileşen güncellemelerini çok daha hızlı ve senkron yapabilir (Uzun listelerdeki beyaz ekran kalma sorununu çözer).
+
+- [] **TurboModules (Yeni Modül Yapısı)**
+> Cihaz donanımlarına erişen modüllerin (kamera, konum vb.) çalışma biçimidir. Modüller uygulama ilk açıldığında değil, sadece ihtiyaç duyulduğunda (lazy-loading) hafızaya yüklenir. Bu da uygulamanın açılış süresini (TTI) belirgin şekilde hızlandırır.
+
+- [] **CodeGen**
+> JavaScript tarafındaki veri tipleri ile Native (C++/Swift/Java) taraftaki tipleri otomatik eşleştiren ve geliştirme anında tip hatalarını önleyen araçtır.
+
 ## React Native Temelleri
 
 ### JSX (JavaScript Syntax Extension) 
-React ve React Native ortamında programlama yaparken kullanılacak sözdiziminin okunmasını veya ifade edilmesini kolaylaştırmak için tasarlanmış formattır.
-
+React ve React Native ortamında UI bileşenlerini HTML benzeri bir sözdizimiyle yazmamızı sağlayan format yapısıdır.
 ```javascript
 //Bu şekildeki bir yapıyı...
 React.createElement(
@@ -214,12 +230,11 @@ Her componentin bir yaşam süreci vardır. Doğar, yaşar ve ölür. Biz geliş
 
 React Hooks gelmeden önce Class component yapısında kullanılan üç aktif life-cycle method bulunmaktadır bunlar;
 - `componentDidMount()`
-> Bileşen başlangıçta bir kez render edildiğinde çalışır.
+> Bileşen ekrana ilk render edildikten hemen sonra çalışır (API istekleri için idealdir).
 -  `componentDidUpdate()`
-> Bileşen update edildiğinde ait olduğu bileşen render edilir ve yenilenir.
+> Props veya State değişip bileşen yeniden render edildikten sonra çalışır.
 -  `componentWillUnmount()`
-> Bileşen yapıdan çıkarıldığında (silinmesi,gösterilmemesi) gibi durumlarda kullanılır .
-
+> Bileşen ekrandan/hafızadan kaldırılmadan hemen önce çalışır (Timer temizleme, event listener kaldırma için kullanılır).
 2. #### Functional Component Hook Lifecycle
 
 React Hooks ile birlikte dünyamıza giren useEffect bu yapıları tek bir method altında kullanmamıza olanak sağlıyor.
