@@ -85,6 +85,8 @@ React Native ile geliştirmiş bir uygulama Native uygulamaların aksine direk i
 ### Yeni Mimari
 Yeni mimari, Bridge tıkanıklığını ortadan kaldırmak için C++ tabanlı JSI (JavaScript Interface) üzerine inşa edilmiştir. Veriler JSON'a dönüştürülmeden, doğrudan bellekteki C++ nesne referanslarıyla iletilir.
 
+![Resim 8](/gorsel/Resim8.png)
+
 - [ ] **JSI (JavaScript Interface)**
 > Bridge yapısını tamamen kaldırır. JS katmanının C++ nesneleri üzerinden Native metotları doğrudan ve senkron olarak çağırmasını sağlar.
 
