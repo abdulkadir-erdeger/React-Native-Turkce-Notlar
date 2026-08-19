@@ -27,6 +27,7 @@
 		- [Context API](#context-api)
 		- [Redux](#redux)
 		- [Redux Saga](#redux-saga)
+  		- [Zustand](#zustand)
 	- [Memoization / Re-Render (Performans Optimizasyonu)](#memoization--re-render-performans-optimizasyonu)
 		- [`useMemo()`](#usememo)
 		- [`useCallback()`](#usecallback)
@@ -342,10 +343,126 @@ Veriler prop'lar aracılığıyla en üst componentden bir alt componenete (yuka
 - **Store:** Action ve reducer’ı bir araya getirip yapıyı bağlar. Uygulamanın state’ini tutar ve bazı metodlar ile bu state’e erişim yapılmasını sağlar.
 - **Provider:** Store’un tüm uygulamaya etki etmesini sağlayan, uygulamanın etrafını sarmalayan bir yapıdır.
 
+Redux Toolkit, Redux ile state yönetimini daha basit, daha güvenli ve çok daha az kod yazarak (boilerplate kodlardan arındırılmış) gerçekleştirmek için Redux ekibi tarafından geliştirilen resmi ve standart yöntemdir.
+
+Klasik Redux'taki karmaşık `actionTypes`, `actionCreators` ve uzun `switch-case` yapılı reducer tanımları yerine **`createSlice`** yapısını sunar.
+
+* **Daha Az Kod:** Action ve Reducer yapılarını tek bir "Slice" içinde birleştirir.
+* **Doğrudan State Mutasyonu (Immer Entegrasyonu):** Arka planda Immutability (değişmezlik) kuralını korurken, kod yazarken state'i doğrudan güncelliyormuş gibi (`state.value += 1`) yazabilmenizi sağlar.
+* **Redux DevTools & Thunk Dahil Gelir:** Ekstra kurulum yapmadan asenkron işlemler (Thunk) ve hata ayıklama araçları hazır sunulur.
+
+##### 1. Store Oluşturma (`store.js`)
+```javascript
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './counterSlice';
+
+export const store = configureStore({
+  reducer: {
+    counter: counterReducer,
+  },
+});
+```
+##### 2. Slice (State + Action) Tanımlama (counterSlice.js)
+```javascript
+import { createSlice } from '@reduxjs/toolkit';
+
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: { value: 0 },
+  reducers: {
+    increment: (state) => {
+      state.value += 1; // Immer sayesinde doğrudan mutasyon gibi yazılabilir
+    },
+    decrement: (state) => {
+      state.value -= 1;
+    },
+    incrementByAmount: (state, action) => {
+      state.value += action.payload;
+    },
+  },
+});
+
+export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export default counterSlice.reducer;
+```
+
+##### 3. Component İçinde Kullanım
+```javascript
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { increment, decrement } from './counterSlice';
+
+export const Counter = () => {
+  const count = useSelector((state) => state.counter.value);
+  const dispatch = useDispatch();
+
+  return (
+    <View>
+      <Text>Sayaç: {count}</Text>
+      <Button onPress="{()" title="Arttır"> dispatch(increment())} />
+      <Button onPress="{()" title="Azalt"> dispatch(decrement())} />
+    </View>
+  );
+};
+```
+
 #### Redux Saga
 > `Redux Saga` asenkron akışların okunmasını, yazılmasını ve test edilmesini kolaylaştırmak için kullanılan bir kütüphanedir. Bir Redux ara yazılımıdır; normal Redux eylemleriyle ana uygulamadan başlatılabilir, duraklatılabilir ve iptal edilebilir, tüm Redux uygulama durumuna erişebilir ve Redux eylemlerini de gönderebilir.
 
 ![Resim 7](/gorsel/Resim7.png)
+
+#### Zustand
+Zustand, React Native ve React projelerinde global state yönetimi için kullanılan çok hafif, hızlı ve basit bir kütüphanedir. Redux gibi karmaşık kurulumlar gerektirmez.
+
+#### Neden Kullanılır?
+* **Kurulumu Çok Basittir:** Tek bir fonksiyon ile store oluşturulur.
+* **Provider Gerektirmez:** Uygulamanın etrafını `<Provider>` ile sarmalamak gerekmez.
+* **Performanslıdır:** Yalnızca kullanılan veri değiştiğinde ilgili componenti yeniden çalıştırır (re-render).
+
+![Resim 9](/gorsel/Resim9.png)
+
+##### 1. Store Oluşturma (`useStore.js`)
+
+`create` fonksiyonu ile state ve bu state'i değiştirecek fonksiyonlar tek bir yerde tanımlanır.
+
+```javascript
+import { create } from 'zustand';
+
+const useCounterStore = create((set) => ({
+  count: 0,
+  increase: () => set((state) => ({ count: state.count + 1 })),
+  decrease: () => set((state) => ({ count: state.count - 1 })),
+  reset: () => set({ count: 0 }),
+}));
+
+export default useCounterStore;
+```
+
+##### 2. Component İçinde Kullanımı
+Oluşturulan store, bir Hook gibi doğrudan component içinde çağrılarak kullanılır.
+```javascript
+import React from 'react';
+import { View, Text, Button } from 'react-native';
+import useCounterStore from './useCounterStore';
+
+const Counter = () => {
+  // Store içinden ihtiyaç duyduğumuz verileri alıyoruz
+  const count = useCounterStore((state) => state.count);
+  const increase = useCounterStore((state) => state.increase);
+  const decrease = useCounterStore((state) => state.decrease);
+
+  return (
+    <View>
+      <Text>Sayaç: {count}</Text>
+      <Button onPress="{increase}" title="Arttır"/>
+      <Button onPress="{decrease}" title="Azalt"/>
+    </View>
+  );
+};
+
+export default Counter;
+```
 
 ### Memoization / Re-Render (Performans Optimizasyonu)
 Bazen uygulamalarımızda fazla işlemci tüketen fonksiyonlar veya gereksiz re-render eden componentlerden kaynaklı performans sorunları yaşayabiliriz. Bu performans sorunlarını önlemek için Class componentler için `Pure Component` ve `shouldComponentUpdate`, Functional componentler için `useMemo` ve `useCallback` yöntemlerini kullanabiliriz.
